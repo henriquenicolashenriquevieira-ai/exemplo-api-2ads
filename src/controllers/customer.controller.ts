@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { customerService } from '../services/customer.service';
+import { orderService } from '../services/order.service';
 import {
   createCustomerSchema,
   updateCustomerSchema,
@@ -50,4 +51,11 @@ export const customerController = {
     }
   },
 
+  async listOrders(req: Request, res: Response, next: NextFunction) {
+    try {
+      res.json(await orderService.listByCustomer(Number(req.params.id)));
+    } catch (err) {
+      next(err);
+    }
+  },
 };
