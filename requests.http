@@ -1,0 +1,102 @@
+@baseUrl = http://localhost:3000
+
+### ===== PRODUTOS =====
+
+### Listar todos os produtos
+GET {{baseUrl}}/products
+
+### Buscar um produto
+GET {{baseUrl}}/products/1
+
+### Criar um produto
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+  "name": "Açúcar Refinado 1kg",
+  "description": "Açúcar cristal refinado",
+  "price": 5.90
+}
+
+### Atualizar um produto
+PUT {{baseUrl}}/products/1
+Content-Type: application/json
+
+{
+  "price": 29.90
+}
+
+### Remover um produto
+DELETE {{baseUrl}}/products/3
+
+### ===== CLIENTES =====
+
+### Listar clientes
+GET {{baseUrl}}/customers
+
+### Buscar um cliente
+GET {{baseUrl}}/customers/1
+
+### Criar um cliente
+POST {{baseUrl}}/customers
+Content-Type: application/json
+
+{
+  "name": "Ana Souza",
+  "email": "ana@email.com",
+  "phone": "11988887777"
+}
+
+### Atualizar um cliente
+PUT {{baseUrl}}/customers/1
+Content-Type: application/json
+
+{
+  "phone": "11977776666"
+}
+
+### Listar pedidos de um cliente
+GET {{baseUrl}}/customers/1/orders
+
+### Remover um cliente
+DELETE {{baseUrl}}/customers/2
+
+### ===== PEDIDOS =====
+
+### Criar um pedido
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "customer_id": 1,
+  "items": [
+    { "product_id": 1, "quantity": 2 },
+    { "product_id": 2, "quantity": 3 }
+  ]
+}
+
+### Listar pedidos
+GET {{baseUrl}}/orders
+
+### Ver um pedido específico (com os itens)
+GET {{baseUrl}}/orders/1
+
+### ===== ERROS DE PROPÓSITO =====
+
+### Produto sem nome (400)
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{ "price": 10 }
+
+### Preço negativo (400)
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{ "name": "Teste", "price": -5 }
+
+### Pedido com cliente inexistente (404)
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{ "customer_id": 999, "items": [{ "product_id": 1, "quantity": 1 }] }
